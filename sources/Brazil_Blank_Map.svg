@@ -310,5 +310,36 @@
  
  
  
+<script type="text/javascript">
+//<![CDATA[
 
+var Estados       = document.getElementById('Estados');
+var FillColorOut  = '#AAAACC';
+var FillColorOver = '#AAAAFF';
+
+for ( Estado in Estados.childNodes )
+{
+   Estado = Estados.childNodes[Estado];
+   
+   if ( Estado.hasAttributes() && Estado.hasAttribute('d') )
+   {
+      Estado.style.cursor = 'pointer';
+      Estado.style.fill   = FillColorOut;
+      
+      Estado.onmouseover = function () {
+         
+         this.style.fill = FillColorOver;
+         
+      }
+      
+      Estado.onmouseout  = function () {
+         
+         this.style.fill = FillColorOut;
+         
+      }
+   }
+}
+
+]]>
+</script>
 </svg>
