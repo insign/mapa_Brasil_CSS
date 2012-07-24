@@ -1,4 +1,9 @@
 Mapa do Brasil mapeado em CSS
+
+Exemplo em http://ponto.me/tmp/mapa_Brasil_CSS/map.html
+
+Características:
+
 - Arquivos fontes em alta resolução e mapa em SVG via https://commons.wikimedia.org/wiki/File:Brazil_Blank_Map_light.svg
 - Arquivos finais em 16 cores e extremamente leve
 - Sprite em 16 cores e criado via http://css.spritegen.com
