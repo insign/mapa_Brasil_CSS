@@ -1,0 +1,30 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+#map-container {
+    width: 90%;
+    max-width: 800px;
+}
+
+svg {
+    width: 100%;
+    height: auto;
+}
+
+.state {
+    fill: #ccc;
+    stroke: #fff;
+    stroke-width: 1;
+    transition: fill 0.3s;
+}
+
+.state:hover {
+    fill: #a5d6a7;
+}
