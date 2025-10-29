@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
             states.forEach(state => {
                 if(state.id){
                     state.classList.add('state');
+                    state.addEventListener('click', () => {
+                        alert(`State ID: ${state.id}`);
+                    });
                 }
             });
         });

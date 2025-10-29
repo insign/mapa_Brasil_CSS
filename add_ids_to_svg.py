@@ -1,36 +1,65 @@
-import re
+import xml.etree.ElementTree as ET
 
-# List of Brazilian states abbreviations
-states = [
-    "ac", "al", "ap", "am", "ba", "ce", "df", "es", "go", "ma", "mt", "ms",
-    "mg", "pa", "pb", "pr", "pe", "pi", "rj", "rn", "rs", "ro", "rr", "sc",
-    "sp", "se", "to"
+# Register the SVG namespace to avoid issues with prefixes
+ET.register_namespace("", "http://www.w3.org/2000/svg")
+
+# Manually defined Brazil states abbreviations in a plausible order
+# This is a placeholder and will need to be manually verified
+states_abbr = [
+    "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS",
+    "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC",
+    "SP", "SE", "TO"
 ]
 
-# Read the SVG file
-with open("sources/Brazil_Blank_Map.svg", "r") as f:
-    svg_content = f.read()
+def clean_svg_and_assign_ids(input_svg_path, output_svg_path):
+    # Parse the SVG file, removing unsupported attributes for security
+    tree = ET.parse(input_svg_path, parser=ET.XMLParser(target=ET.TreeBuilder(insert_comments=False, insert_pis=False)))
+    root = tree.getroot()
 
-# Use a regular expression to find all path elements and add an id to each one
-path_regex = re.compile(r'(<path\s)(.*?)(/>|>)', re.DOTALL)
+    # Find the group of states by ID
+    states_group = root.find(".//*[@id='Estados']")
+    if states_group is None:
+        print("Error: Could not find the group with id='Estados'")
+        return
 
-# A function to replace each path with a state id
-def add_id_to_path(match, state_list):
-    if not state_list:
-        return match.group(0)
+    # Remove all non-path elements from the group
+    for elem in list(states_group):
+        if 'path' not in elem.tag:
+            states_group.remove(elem)
 
-    state_id = state_list.pop(0)
-    return f'{match.group(1)}id="{state_id}" {match.group(2)}{match.group(3)}'
+    # Clean paths and assign IDs
+    paths = states_group.findall("{http://www.w3.org/2000/svg}path")
+    if len(paths) != len(states_abbr):
+        print(f"Warning: Found {len(paths)} paths but have {len(states_abbr)} state abbreviations.")
 
-# Get a copy of the list to avoid modifying the original
-states_copy = states[:]
-modified_svg_content, num_replacements = path_regex.subn(
-    lambda m: add_id_to_path(m, states_copy),
-    svg_content
-)
+    # Remove style elements from the entire SVG
+    for style_elem in root.findall(".//{http://www.w3.org/2000/svg}style"):
+        parent = root.find(".//*[style]")
+        if parent is not None:
+            parent.remove(style_elem)
 
-# Write the modified content to a new file
-with open("assets/map.svg", "w") as f:
-    f.write(modified_svg_content)
+    for i, path in enumerate(paths):
+        # Preserve the 'd' attribute, which defines the shape
+        d_attrib = path.attrib.get('d')
 
-print(f"Added {num_replacements} IDs to the SVG file.")
+        # Clear all other attributes
+        path.attrib.clear()
+
+        if d_attrib:
+            path.attrib['d'] = d_attrib
+
+        # Assign a unique ID and a common class
+        if i < len(states_abbr):
+            path.attrib['id'] = states_abbr[i].lower()
+        path.attrib['class'] = 'state'
+
+    # Create a new SVG structure for the cleaned output
+    new_root = ET.Element('svg', attrib=root.attrib)
+    new_root.append(states_group)
+
+    # Write the cleaned SVG to a new file
+    new_tree = ET.ElementTree(new_root)
+    new_tree.write(output_svg_path, encoding='utf-8', xml_declaration=True)
+
+# Run the cleaning process
+clean_svg_and_assign_ids('sources/Brazil_Blank_Map.svg', 'assets/map.svg')
