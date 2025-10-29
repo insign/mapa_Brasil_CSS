@@ -1,47 +1,47 @@
-# Interactive SVG Map of Brazil
+# Mapa Interativo do Brasil em SVG
 
-This project displays a fully responsive and interactive map of Brazil using SVG, CSS, and JavaScript. It allows for easy interaction with each state.
+Este projeto exibe um mapa do Brasil totalmente responsivo e interativo usando SVG, CSS e JavaScript. Ele permite a interação fácil com cada estado.
 
-## Features
+## Funcionalidades
 
-- **Interactive States**: Hover over any state to see it highlight.
-- **Click Events**: Click on any state to trigger a JavaScript alert with its abbreviation.
-- **Responsive Design**: The map automatically adjusts to fit the screen size.
-- **Modern Stack**: Built with modern web technologies (SVG, CSS3, ES6 JavaScript), replacing an outdated 2012 CSS sprite implementation.
+- **Estados Interativos**: Passe o mouse sobre qualquer estado para vê-lo destacar.
+- **Eventos de Clique**: Clique em qualquer estado para acionar um alerta JavaScript com sua abreviação.
+- **Design Responsivo**: O mapa se ajusta automaticamente ao tamanho da tela.
+- **Tecnologias Modernas**: Construído com tecnologias web modernas (SVG, CSS3, JavaScript ES6), substituindo uma implementação desatualizada de 2012 baseada em CSS sprites.
 
-## How to Run Locally
+## Como Executar Localmente
 
-1.  **Clone the repository:**
+1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/seu-usuario/seu-repositorio.git
+    cd seu-repositorio
     ```
 
-2.  **Start a local web server:**
-    Since the project uses `fetch` to load the SVG, you need to run it on a local server to avoid CORS issues. A simple way to do this is with Python's built-in HTTP server.
+2.  **Inicie um servidor web local:**
+    Como o projeto usa `fetch` para carregar o SVG, você precisa executá-lo em um servidor local para evitar problemas de CORS. Uma maneira simples de fazer isso é com o servidor HTTP embutido do Python.
 
     ```bash
     python3 -m http.server 8000
     ```
 
-3.  **Open in your browser:**
-    Navigate to `http://localhost:8000/map.html`.
+3.  **Abra no seu navegador:**
+    Navegue para `http://localhost:8000/map.html`.
 
-## Screenshot
+## Captura de Tela
 
-Here is a preview of the interactive map with the hover effect active on a state:
+Aqui está uma prévia do mapa interativo com o efeito de hover ativo em um estado:
 
-![Interactive Map of Brazil Screenshot](screenshot.png)
+![Captura de Tela do Mapa Interativo do Brasil](screenshot.png)
 
-## File Structure
+## Estrutura de Arquivos
 
-- `map.html`: The main HTML file that displays the map.
-- `assets/map.svg`: The cleaned and optimized SVG file containing the paths for each Brazilian state.
-- `assets/style.css`: The stylesheet for map styling and hover effects.
-- `assets/script.js`: The JavaScript file that dynamically loads the SVG and adds interactivity.
-- `sources/`: Contains the original source SVG file before processing.
-- `add_ids_to_svg.py`: The Python script used to process the source SVG and assign unique IDs to each state.
+- `map.html`: O arquivo HTML principal que exibe o mapa.
+- `assets/map.svg`: O arquivo SVG limpo e otimizado contendo os caminhos para cada estado brasileiro.
+- `assets/style.css`: A folha de estilos para a estilização do mapa e efeitos de hover.
+- `assets/script.js`: O arquivo JavaScript que carrega dinamicamente o SVG e adiciona interatividade.
+- `sources/`: Contém o arquivo SVG original antes do processamento.
+- `add_ids_to_svg.py`: O script Python usado para processar o SVG de origem e atribuir IDs únicos a cada estado.
 
-## History
+## Histórico
 
-This project is a complete modernization of an old map of Brazil originally created in 2012 using CSS sprites and GIFs. The new version is more maintainable, scalable, and built with current web standards.
+Este projeto é uma modernização completa de um mapa antigo do Brasil criado originalmente em 2012 usando CSS sprites e GIFs. A nova versão é mais fácil de manter, escalável e construída com os padrões web atuais.
